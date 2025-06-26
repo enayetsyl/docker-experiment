@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    container_name: env_demo
+    command: npm run dev            # nodemon polling
+    ports:
+      - "${PORT}:${PORT}"          # ⚡  uses .env substitution
+    env_file:                       # 1️⃣ import every key/value
+      - .env
+    volumes:                        # 2️⃣ live‑reload pattern
+      # a. source code (plain bind mount)
+      - .:/usr/src/app
+      # b. dependency cache (anonymous volume)
+      - /usr/src/app/node_modules
+    environment:                    # 3️⃣ Fallbacks / overrides
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: "1000"
+
+    stdin_open: true           # keeps STDIN open (-i)
+    tty: true
+# no named volumes here – keep node_modules in RAM/disk cache

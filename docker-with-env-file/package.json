@@ -1,0 +1,14 @@
+{
+  "name": "docker-with-env-file",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon --legacy-watch index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  }
+}
