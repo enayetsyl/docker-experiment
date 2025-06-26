@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: docker-container-to-www-connection
+    command: npm run dev -- --host
+    env_file: .env                # loads HOST_PORT
+    ports:
+      - "${HOST_PORT}:5173"       # host → container
+    volumes:
+      - .:/usr/src/app            # bind mount: live-reload code
+      - /usr/src/app/node_modules # anonymous volume: keep deps inside
+    stdin_open: true              # -i  (interactive)
+    tty: true                     # -t  (pseudo-TTY)
