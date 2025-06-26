@@ -1,0 +1,17 @@
+services:
+  dev:
+    build: .
+    container_name: bind_dev
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # 1️⃣ source code (plain bind mount)
+      - .:/usr/src/app
+      # 2️⃣ dependency cache (anonymous)
+      - /usr/src/app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true   # enable nodemon polling
+      - CHOKIDAR_INTERVAL=1000     # (optional) poll every 1s
+
+# no named volumes needed for node_modules here
