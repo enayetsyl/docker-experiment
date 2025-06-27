@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: docker-container-to-localhost
+    env_file: .env
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "${HOST_PORT}:8000"                # Host:Container
+    volumes:
+      - .:/usr/src/app                     # 1️⃣ code – live reload
+      - /usr/local/lib/python3.12/site-packages  # 2️⃣ deps – anonymous cache
+    stdin_open: true                       # -i  interactive shell
+    tty: true                              # -t  pseudo-TTY
